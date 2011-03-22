@@ -1,0 +1,17 @@
+<!doctype html>
+<head>
+  <title>Chargify Direct Example</title>
+
+  <meta charset="utf-8">
+
+  <meta name="description" content="Chargify Direct Example">
+  <meta name="author" content="Michael Klett">
+</head>
+
+<body>
+  <% unless params[:message].nil? %>
+    <p style="color:#ff0000"><%= params[:message] %></p>
+  <% end %>
+  <%= yield %>
+</body>
+</html>

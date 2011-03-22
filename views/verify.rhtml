@@ -1,0 +1,12 @@
+<h1>Verify</h1>
+
+<% if params.empty? %>
+<p>No params posted back</p>
+<% else %>
+<p>The posted params are:</p>
+
+<ul>
+  <% params.each do |key,value| %>
+  <li><%= key %>=<%= value %></li>
+  <% end %>
+</ul>
