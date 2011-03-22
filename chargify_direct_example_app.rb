@@ -15,7 +15,7 @@ get '/signup/:plan' do
   end
 end
 
-post '/verify' do
+get '/verify' do
   erb :verify
 end
 
