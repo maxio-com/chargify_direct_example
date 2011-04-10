@@ -1,0 +1,15 @@
+<h1>Receipt</h1>
+
+<p>
+  You just signed up for the <%= @call.response.signup.product.name %> Plan.
+</p>
+<% if @call.response.signup.subscription.signup_revenue == 0 %>
+<p>
+  No payment was due for this sign up.
+</p>
+<% else %>
+<p>
+  You were charged $<%= @call.response.signup.subscription.signup_revenue %> to the card
+  ending in <%= @call.response.signup.payment_profile.masked_card_number %>.
+</p>
+<% end %>

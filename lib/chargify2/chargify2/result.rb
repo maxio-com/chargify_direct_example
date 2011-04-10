@@ -1,0 +1,3 @@
+class Result < Resource
+  
+end
