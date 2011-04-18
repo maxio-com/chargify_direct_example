@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'yaml'
 
-require '/Users/moklett/Dropbox/Projects/chargify2/lib/chargify2'
+require 'chargify2'
 
 get '/' do
   erb :index
