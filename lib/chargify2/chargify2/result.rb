@@ -1,3 +1,0 @@
-class Result < Resource
-  
-end

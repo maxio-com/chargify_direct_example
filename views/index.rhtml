@@ -11,7 +11,13 @@
 </div>
 <% end %>
 
-<form method="post" action="http://app.chargify.local/api/v2/signups">
+<% if @flash %>
+<div class="errors">
+  <p><strong><%= @flash %></strong></p>
+</div>
+<% end %>
+
+<form method="post" action="<%= chargify.base_uri %>/signups">
   <%= chargify.direct.secure_parameters(
     :data => {
       :redirect_uri => "http://localhost:4567/verify"

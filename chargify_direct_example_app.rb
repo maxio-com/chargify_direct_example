@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'yaml'
 
-require 'chargify2'
+require '/Users/moklett/Dropbox/Projects/chargify2/lib/chargify2'
 
 get '/' do
   erb :index
@@ -14,7 +14,7 @@ get '/verify' do
     if @call.successful?
       redirect "/receipt/#{@call.id}"
     else
-      erb :index
+      erb :unknown_error
     end
   else # Unverified redirect
     erb :unverified
@@ -36,7 +36,7 @@ end
 
 helpers do
   def chargify
-    @chargify ||= Chargify2::Client.new(:api_id => config['api_id'], :api_password => config['api_password'], :api_secret => config['api_secret'], :base_uri => "http://app.chargify.local/api/v2")
+    @chargify ||= Chargify2::Client.new(config)
   end
   
   def config
