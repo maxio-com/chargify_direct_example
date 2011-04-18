@@ -14,7 +14,7 @@ get '/verify' do
     if @call.successful?
       redirect "/receipt/#{@call.id}"
     else
-      erb :unknown_error
+      erb :index
     end
   else # Unverified redirect
     erb :unverified
