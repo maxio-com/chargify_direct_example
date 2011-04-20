@@ -8,7 +8,7 @@ get '/' do
 end
 
 get '/verify' do
-  if chargify.direct.result(params).verified?
+  if chargify.direct.response_parameters(params).verified?
     @call = chargify.calls.read(params[:call_id])
 
     if @call.successful?
