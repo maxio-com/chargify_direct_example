@@ -34,6 +34,14 @@
   </fieldset>
   
   <fieldset>
+    <legend>Coupon</legend>
+    <p>
+      <label for="signup_coupon_code">Coupon Code</label><br/>
+      <input type="text" name="signup[coupon_code]" id="signup_coupon_code" value="<%= h(original_params.signup[:coupon_code]) %>" />
+    </p>
+  </fieldset>
+  
+  <fieldset>
     <legend>About You</legend>
 
     <p>
