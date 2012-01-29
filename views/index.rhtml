@@ -21,7 +21,8 @@
   <%= chargify.direct.secure_parameters(
     :data => {
       :redirect_uri => "http://localhost:4567/verify"
-    }
+    },
+    :nonce => '123'
   ).to_form_inputs %>
   <fieldset>
     <legend>Select Plan</legend>
