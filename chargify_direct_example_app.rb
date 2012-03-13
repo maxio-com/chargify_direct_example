@@ -1,61 +1,60 @@
-require 'sinatra'
 require 'yaml'
 
-require 'chargify2'
+class ChargifyDirectExampleApp < Sinatra::Base
+  get '/' do
+    erb :index
+  end
 
-get '/' do
-  erb :index
-end
+  get '/verify' do
+    if chargify.direct.response_parameters(params).verified?
+      @call = chargify.calls.read(params[:call_id])
 
-get '/verify' do
-  if chargify.direct.response_parameters(params).verified?
-    @call = chargify.calls.read(params[:call_id])
-
-    if @call.successful?
-      redirect "/receipt/#{@call.id}"
-    else
-      erb :index
+      if @call.successful?
+        redirect "/receipt/#{@call.id}"
+      else
+        erb :index
+      end
+    else # Unverified redirect
+      erb :unverified
     end
-  else # Unverified redirect
-    erb :unverified
   end
-end
 
-get '/receipt/:call_id' do
-  @call = chargify.calls.read(params[:call_id])
-  if @call
-    erb :receipt
-  else
-    not_found
-  end
-end
-
-not_found do
-  "Not found"
-end
-
-helpers do
-  def chargify
-    @chargify ||= Chargify2::Client.new(config)
-  end
-  
-  def config
-    @config ||= YAML.load(File.open(config_file)) || {}
-  end
-  
-  def config_file
-    File.expand_path File.join(File.dirname(__FILE__), 'config', 'config.yml')
-  end
-  
-  def h(s)
-    Rack::Utils.escape_html(s)
-  end
-  
-  def original_params
+  get '/receipt/:call_id' do
+    @call = chargify.calls.read(params[:call_id])
     if @call
-      @call.request
+      erb :receipt
     else
-      OpenCascade.new
+      not_found
+    end
+  end
+
+  not_found do
+    "Not found"
+  end
+
+  helpers do
+    def chargify
+      @chargify ||= Chargify2::Client.new(config)
+    end
+  
+    def config
+      @config ||= YAML.load(File.open(config_file)) || {}
+    end
+  
+    def config_file
+      File.expand_path File.join(File.dirname(__FILE__), 'config', 'config.yml')
+    end
+  
+    def h(s)
+      Rack::Utils.escape_html(s)
+    end
+  
+    def original_params
+      if @call
+        @call.request
+      else
+        OpenCascade.new
+      end
     end
   end
 end
