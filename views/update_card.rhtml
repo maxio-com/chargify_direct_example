@@ -1,0 +1,69 @@
+<h1>Change/Update Credit Card</h1>
+
+<% if @call && !@call.errors.empty? %>
+<div class="errors">
+  <p><strong>Could not update the card. Please correct the following problems:</strong></p>
+  <ul>
+    <% @call.errors.each do |error| %>
+    <li><%= error.message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<% if @flash %>
+<div class="errors">
+  <p><strong><%= @flash %></strong></p>
+</div>
+<% end %>
+
+<form method="post" action="<%= chargify.base_uri %>/subscriptions/<%= params[:subscription_id] %>/card_update">
+  <%= chargify.direct.secure_parameters(
+    :nonce => SecureRandom.hex,
+    :data => {
+      :redirect_uri => "#{root_url}/update_card/verify/#{params[:call_id]}",
+      :subscription_id => params[:subscription_id]
+    }
+  ).to_form_inputs %>
+
+  <fieldset>
+    <legend>Payment Profile</legend>
+
+    <p>
+      <label for="payment_profile_first_name">First Name on Card</label><br/>
+      <input type="text" name="payment_profile[first_name]" id="payment_profile_first_name" value="<%= h(original_params.payment_profile[:first_name]) %>" />
+    </p>
+    
+    <p>
+      <label for="payment_profile_first_name">Last Name on Card</label><br/>
+      <input type="text" name="payment_profile[last_name]" id="payment_profile_last_name" value="<%= h(original_params.payment_profile[:last_name]) %>" />
+    </p>
+    
+    <p>
+      <label for="payment_profile_card_number">Card Number</label><br/>
+      <input type="text" name="payment_profile[card_number]" id="payment_profile_card_number" value="<%= h(original_params.payment_profile[:card_number]) %>" />
+    </p>
+    
+    <p>
+      Expiration <label for="payment_profile_expiration_month">Month</label> / <label for="payment_profile_expiration_year">Year</label><br/>
+      <select name="payment_profile[expiration_month]" id="payment_profile_expiration_month">
+        <% for i in 1..12 do %>
+        <option value="<%= i %>"<%= ' selected' if original_params.payment_profile[:expiration_month] == i.to_s %>><%= "%02d" % i.to_s %></option>
+        <% end %>
+      </select>
+      /
+      <select name="payment_profile[expiration_year]" id="payment_profile_expiration_year">
+        <% t = Time.now.year; for i in t..(t+10) %>
+        <option value="<%= i %>"<%= ' selected' if original_params.payment_profile[:expiration_year] == i.to_s %>><%= i %></option>
+        <% end %>
+      </select>
+    </p>
+  </fieldset>
+  
+  <p>
+    <input type="submit" value="Update"/>
+    or
+    <a href="/receipt/<%= params[:call_id] %>">Go Back</a>
+  </p>
+    
+</form>

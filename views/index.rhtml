@@ -20,7 +20,7 @@
 <form method="post" action="<%= chargify.base_uri %>/signups">
   <%= chargify.direct.secure_parameters(
     :data => {
-      :redirect_uri => "http://localhost:4567/verify"
+      :redirect_uri => "#{root_url}/verify"
     }
   ).to_form_inputs %>
   <fieldset>

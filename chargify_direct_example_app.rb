@@ -1,4 +1,5 @@
 require 'yaml'
+require 'securerandom'
 
 class ChargifyDirectExampleApp < Sinatra::Base
   get '/' do
@@ -19,6 +20,20 @@ class ChargifyDirectExampleApp < Sinatra::Base
     end
   end
 
+  get '/update_card/verify/:original_call_id' do
+    if chargify.direct.response_parameters(params).verified?
+      @call = chargify.calls.read(params[:call_id])
+
+      if @call.successful?
+        redirect "/receipt/#{params[:original_call_id]}"
+      else
+        erb :update_card
+      end
+    else # Unverified redirect
+      erb :unverified
+    end
+  end
+
   get '/receipt/:call_id' do
     @call = chargify.calls.read(params[:call_id])
     if @call
@@ -28,11 +43,19 @@ class ChargifyDirectExampleApp < Sinatra::Base
     end
   end
 
+  get '/update_card/:subscription_id/:call_id' do
+    erb :update_card
+  end
+
   not_found do
     "Not found"
   end
 
   helpers do
+    def root_url
+      "#{request.scheme}://#{request.host_with_port}"
+    end
+
     def chargify
       @chargify ||= Chargify2::Client.new(config)
     end

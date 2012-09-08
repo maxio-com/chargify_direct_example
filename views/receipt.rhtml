@@ -13,3 +13,7 @@
   ending in <%= @call.response.signup.payment_profile.masked_card_number %>.
 </p>
 <% end %>
+
+<p>
+<a href="/update_card/<%= @call.response.signup.subscription.id %>/<%= @call.id %>">Change the card on file</a>
+</p>
