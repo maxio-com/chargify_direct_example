@@ -1,1 +1,6 @@
 config/config.yml
+.ruby-version # We don't enforce a ruby version on this project
+
+# NOTE:
+# Please add files such as .rvmrc and .rbenv-version to your global
+# ignore file (https://help.github.com/articles/ignoring-files)
