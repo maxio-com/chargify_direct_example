@@ -48,13 +48,25 @@ class ChargifyDirectExampleApp < Sinatra::Base
     def h(s)
       Rack::Utils.escape_html(s)
     end
-  
-    def original_params
-      if @call
-        @call.request
-      else
-        OpenCascade.new
-      end
+
+    def signup_params
+      @call ? @call.request.signup : nil
+    end
+
+    def product_params
+      signup_params ? signup_params.product : {}
+    end
+
+    def coupon_code
+      signup_params ? signup_params[:coupon_code] : nil
+    end
+
+    def customer_params
+      signup_params ? signup_params.customer : {}
+    end
+
+    def payment_profile_params
+      signup_params ? signup_params.payment_profile : {}
     end
   end
 end

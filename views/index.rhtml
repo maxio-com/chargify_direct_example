@@ -26,18 +26,34 @@
   <fieldset>
     <legend>Select Plan</legend>
     <p>
-      <input type="radio" name="signup[product][handle]" id="signup_product_handle_basic" value="basic" <%= 'checked' if original_params.signup.product[:handle] == 'basic' %>/><label>Basic</label>
+      <input type="radio" name="signup[product][handle]" id="signup_product_handle_basic" value="basic" <%= 'checked' if product_params[:handle] == 'basic' %>/><label>Basic</label>
     </p>
     <p>
-      <input type="radio" name="signup[product][handle]" id="signup_product_handle_pro" value="pro" <%= 'checked' if original_params.signup.product[:handle] == 'pro' %>/><label>Pro</label>
+      <input type="radio" name="signup[product][handle]" id="signup_product_handle_pro" value="pro" <%= 'checked' if product_params[:handle] == 'pro' %>/><label>Pro</label>
     </p>
   </fieldset>
-  
+
+  <% if config['component_id'] %>
+    <fieldset>
+      <legend>Widgets</legend>
+      <p>
+        <label for="signup_widgets">How Many Widgets?</label><br/>
+        <select name="signup[components][11]" id="signup_widgets">
+          <option value="">Please Select</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </p>
+    </fieldset>
+  <% end %>
+
   <fieldset>
     <legend>Coupon</legend>
     <p>
       <label for="signup_coupon_code">Coupon Code</label><br/>
-      <input type="text" name="signup[coupon_code]" id="signup_coupon_code" value="<%= h(original_params.signup[:coupon_code]) %>" />
+      <input type="text" name="signup[coupon_code]" id="signup_coupon_code" value="<%= h(coupon_code) %>" />
     </p>
   </fieldset>
   
@@ -46,15 +62,15 @@
 
     <p>
       <label for="signup_customer_first_name">First Name</label><br/>
-      <input type="text" name="signup[customer][first_name]" id="signup_customer_first_name" value="<%= h(original_params.signup.customer[:first_name]) %>" />
+      <input type="text" name="signup[customer][first_name]" id="signup_customer_first_name" value="<%= h(customer_params[:first_name]) %>" />
     </p>
     <p>
       <label for="signup_customer_last_name">Last Name</label><br/>
-      <input type="text" name="signup[customer][last_name]" id="signup_customer_last_name" value="<%= h(original_params.signup.customer[:last_name]) %>"/>
+      <input type="text" name="signup[customer][last_name]" id="signup_customer_last_name" value="<%= h(customer_params[:last_name]) %>"/>
     </p>
     <p>
       <label for="signup_customer_email">Email</label><br/>
-      <input type="text" name="signup[customer][email]" id="signup_customer_email" value="<%= h(original_params.signup.customer[:email]) %>"/>
+      <input type="text" name="signup[customer][email]" id="signup_customer_email" value="<%= h(customer_params[:email]) %>"/>
     </p>
   </fieldset>
   
@@ -63,30 +79,30 @@
 
     <p>
       <label for="signup_payment_profile_first_name">First Name on Card</label><br/>
-      <input type="text" name="signup[payment_profile][first_name]" id="signup_payment_profile_first_name" value="<%= h(original_params.signup.payment_profile[:first_name]) %>" />
+      <input type="text" name="signup[payment_profile][first_name]" id="signup_payment_profile_first_name" value="<%= h(payment_profile_params[:first_name]) %>" />
     </p>
     
     <p>
       <label for="signup_payment_profile_first_name">Last Name on Card</label><br/>
-      <input type="text" name="signup[payment_profile][last_name]" id="signup_payment_profile_last_name" value="<%= h(original_params.signup.payment_profile[:last_name]) %>" />
+      <input type="text" name="signup[payment_profile][last_name]" id="signup_payment_profile_last_name" value="<%= h(payment_profile_params[:last_name]) %>" />
     </p>
     
     <p>
       <label for="signup_payment_profile_card_number">Card Number</label><br/>
-      <input type="text" name="signup[payment_profile][card_number]" id="signup_payment_profile_card_number" value="<%= h(original_params.signup.payment_profile[:card_number]) %>" />
+      <input type="text" name="signup[payment_profile][card_number]" id="signup_payment_profile_card_number" value="<%= h(payment_profile_params[:card_number]) %>" />
     </p>
     
     <p>
       Expiration <label for="signup_payment_profile_expiration_month">Month</label> / <label for="signup_payment_profile_expiration_year">Year</label><br/>
       <select name="signup[payment_profile][expiration_month]" id="signup_payment_profile_expiration_month">
         <% for i in 1..12 do %>
-        <option value="<%= i %>"<%= ' selected' if original_params.signup.payment_profile[:expiration_month] == i.to_s %>><%= "%02d" % i.to_s %></option>
+        <option value="<%= i %>"<%= ' selected' if payment_profile_params[:expiration_month] == i.to_s %>><%= "%02d" % i.to_s %></option>
         <% end %>
       </select>
       /
       <select name="signup[payment_profile][expiration_year]" id="signup_payment_profile_expiration_year">
         <% t = Time.now.year; for i in t..(t+10) %>
-        <option value="<%= i %>"<%= ' selected' if original_params.signup.payment_profile[:expiration_year] == i.to_s %>><%= i %></option>
+        <option value="<%= i %>"<%= ' selected' if payment_profile_params[:expiration_year] == i.to_s %>><%= i %></option>
         <% end %>
       </select>
     </p>

@@ -1,27 +1,24 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    addressable (2.2.7)
-    blankslate (2.1.2.4)
-    chargify2 (0.2.2)
-      addressable
-      hashery
+    chargify2 (0.2.4)
+      hashery (~> 2.1.0)
       hashie
       httparty
-    hashery (1.5.0)
-      blankslate
-    hashie (1.2.0)
-    httparty (0.8.1)
-      multi_json
-      multi_xml
-    multi_json (1.1.0)
-    multi_xml (0.4.2)
-    rack (1.4.1)
-    rack-protection (1.2.0)
       rack
-    sinatra (1.3.2)
-      rack (~> 1.3, >= 1.3.6)
-      rack-protection (~> 1.2)
+    hashery (2.1.0)
+    hashie (2.0.0)
+    httparty (0.10.2)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
+    multi_json (1.6.1)
+    multi_xml (0.5.3)
+    rack (1.5.2)
+    rack-protection (1.3.2)
+      rack
+    sinatra (1.3.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
     tilt (1.3.3)
 
