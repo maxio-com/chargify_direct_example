@@ -17,11 +17,9 @@
 </div>
 <% end %>
 
-<form method="post" action="<%= chargify.base_uri %>/signups" id="signup_form">
+<form method="post" action="<%= chargify.base_uri %>/cors/signups" id="signup_form">
   <%= chargify.direct.secure_parameters(
-    :data => {
-      :redirect_uri => "http://localhost:9292/verify"
-    }
+    :data => { :redirect_uri => "http://direct.dev/verify" }
   ).to_form_inputs %>
   <fieldset>
     <legend>Select Plan</legend>
@@ -56,7 +54,7 @@
       <input type="text" name="signup[coupon_code]" id="signup_coupon_code" value="<%= h(coupon_code) %>" />
     </p>
   </fieldset>
-  
+
   <fieldset>
     <legend>About You</legend>
 
@@ -73,7 +71,7 @@
       <input type="text" name="signup[customer][email]" id="signup_customer_email" value="<%= h(customer_params[:email]) %>"/>
     </p>
   </fieldset>
-  
+
   <fieldset>
     <legend>Payment Profile</legend>
 
@@ -81,17 +79,17 @@
       <label for="signup_payment_profile_first_name">First Name on Card</label><br/>
       <input type="text" name="signup[payment_profile][first_name]" id="signup_payment_profile_first_name" value="<%= h(payment_profile_params[:first_name]) %>" />
     </p>
-    
+
     <p>
       <label for="signup_payment_profile_first_name">Last Name on Card</label><br/>
       <input type="text" name="signup[payment_profile][last_name]" id="signup_payment_profile_last_name" value="<%= h(payment_profile_params[:last_name]) %>" />
     </p>
-    
+
     <p>
       <label for="signup_payment_profile_card_number">Card Number</label><br/>
       <input type="text" name="signup[payment_profile][card_number]" id="signup_payment_profile_card_number" value="<%= h(payment_profile_params[:card_number]) %>" />
     </p>
-    
+
     <p>
       Expiration <label for="signup_payment_profile_expiration_month">Month</label> / <label for="signup_payment_profile_expiration_year">Year</label><br/>
       <select name="signup[payment_profile][expiration_month]" id="signup_payment_profile_expiration_month">
@@ -107,11 +105,11 @@
       </select>
     </p>
   </fieldset>
-  
+
   <p>
     <input type="submit" value="Sign Up" />
     or
     <a href="/">Go Back</a>
   </p>
-    
+
 </form>
