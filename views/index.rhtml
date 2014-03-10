@@ -17,7 +17,7 @@
 </div>
 <% end %>
 
-<form method="post" action="<%= chargify.base_uri %>/cors/signups" id="signup_form">
+<form method="post" action="<%= chargify.base_uri %>/signups" id="signup_form">
   <%= chargify.direct.secure_parameters(
     :data => { :redirect_uri => "http://direct.dev/verify" }
   ).to_form_inputs %>

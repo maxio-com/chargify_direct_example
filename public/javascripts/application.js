@@ -5,6 +5,7 @@ $(function() {
     $.ajax({
       url: $("#signup_form").attr('action'),
       type: "POST",
+      headers: { accept: 'application/json' },
       crossDomain: true,
       dataType: "json",
       data: $("#signup_form").serialize(),
