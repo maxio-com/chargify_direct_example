@@ -1,26 +1,26 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
-    chargify2 (0.2.4)
+    chargify2 (0.2.8)
       hashery (~> 2.1.0)
       hashie
       httparty
       rack
-    hashery (2.1.0)
-    hashie (2.0.0)
-    httparty (0.10.2)
-      multi_json (~> 1.0)
+    hashery (2.1.1)
+    hashie (3.3.1)
+    httparty (0.13.3)
+      json (~> 1.8)
       multi_xml (>= 0.5.2)
-    multi_json (1.6.1)
-    multi_xml (0.5.3)
+    json (1.8.1)
+    multi_xml (0.5.5)
     rack (1.5.2)
-    rack-protection (1.3.2)
+    rack-protection (1.5.3)
       rack
-    sinatra (1.3.4)
+    sinatra (1.4.5)
       rack (~> 1.4)
-      rack-protection (~> 1.3)
-      tilt (~> 1.3, >= 1.3.3)
-    tilt (1.3.3)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    tilt (1.4.1)
 
 PLATFORMS
   ruby
