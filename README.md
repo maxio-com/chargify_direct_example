@@ -7,7 +7,7 @@ Signups.  It leverages the new [Chargify2 gem](https://github.com/chargify/charg
 Requirements
 ---------------
 
-Your current Ruby version must meet or exceed version 2.3.4.
+Your current Ruby version should meet or exceed the version specified in [.ruby-version](.ruby-version).
 
 
 Getting Started
