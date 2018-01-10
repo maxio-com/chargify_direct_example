@@ -28,6 +28,35 @@ class ChargifyDirectExampleApp < Sinatra::Base
     end
   end
 
+  get '/card_update/:subscription_id' do
+    @subscription_id = params[:subscription_id]
+    erb :card_update
+  end
+
+  get '/verify_card_update' do
+    if chargify.direct.response_parameters(params).verified?
+      @call = chargify.calls.read(params[:call_id])
+
+      if @call.successful?
+        redirect "/card_update_receipt/#{@call.id}"
+      else
+        @subscription_id = chargify.calls.read(params[:call_id]).request.id
+        erb :card_update
+      end
+    else # Unverified redirect
+      erb :unverified_card_update
+    end
+  end
+
+  get '/card_update_receipt/:call_id' do
+    @call = chargify.calls.read(params[:call_id])
+    if @call
+      erb :card_update_receipt
+    else
+      not_found
+    end
+  end
+
   not_found do
     "Not found"
   end
