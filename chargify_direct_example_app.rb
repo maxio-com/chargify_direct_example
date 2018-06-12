@@ -2,12 +2,6 @@ require 'yaml'
 
 class ChargifyDirectExampleApp < Sinatra::Base
   get '/' do
-    Braintree::Configuration.environment = :sandbox
-    Braintree::Configuration.merchant_id = config["braintree_merchant_id"]
-    Braintree::Configuration.public_key = config["braintree_public_key"]
-    Braintree::Configuration.private_key = config["braintree_private_key"]
-    @token = Braintree::ClientToken.generate
-
     erb :index
   end
 

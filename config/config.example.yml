@@ -1,6 +1,3 @@
 api_id: xxx
 api_password: xxx
 api_secret: xxx
-braintree_merchant_id: xxx
-braintree_public_key: xxx
-braintree_private_key: xxx
