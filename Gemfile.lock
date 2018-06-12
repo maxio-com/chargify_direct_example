@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    braintree (2.89.0)
+      builder (>= 2.0.0)
+    builder (3.2.3)
     chargify2 (0.2.8)
       hashery (~> 2.1.0)
       hashie
@@ -26,8 +29,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  braintree
   chargify2
   sinatra
 
 BUNDLED WITH
-   1.15.4
+   1.16.2
