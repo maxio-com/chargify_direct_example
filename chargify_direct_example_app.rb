@@ -2,6 +2,12 @@ require 'yaml'
 
 class ChargifyDirectExampleApp < Sinatra::Base
   get '/' do
+    Braintree::Configuration.environment = :sandbox
+    Braintree::Configuration.merchant_id = config["braintree_merchant_id"]
+    Braintree::Configuration.public_key = config["braintree_public_key"]
+    Braintree::Configuration.private_key = config["braintree_private_key"]
+    @token = Braintree::ClientToken.generate
+
     erb :index
   end
 
@@ -65,15 +71,15 @@ class ChargifyDirectExampleApp < Sinatra::Base
     def chargify
       @chargify ||= Chargify2::Client.new(config)
     end
-  
+
     def config
       @config ||= YAML.load(File.open(config_file)) || {}
     end
-  
+
     def config_file
       File.expand_path File.join(File.dirname(__FILE__), 'config', 'config.yml')
     end
-  
+
     def h(s)
       Rack::Utils.escape_html(s)
     end
