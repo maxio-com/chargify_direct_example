@@ -17,7 +17,7 @@
 </div>
 <% end %>
 
-<form method="post" action="<%= chargify.base_uri %>/subscriptions/<%= @subscription_id %>/card_update">
+<form method="post" id="my-form-id" action="<%= chargify.base_uri %>/subscriptions/<%= @subscription_id %>/card_update">
   <%= chargify.direct.secure_parameters(
     :data => {
       :redirect_uri => "http://localhost:9292/verify_card_update",
@@ -33,17 +33,17 @@
       <label for="payment_profile_first_name">First Name on Card</label><br/>
       <input type="text" name="payment_profile[first_name]" id="payment_profile_first_name" value="<%= h(payment_profile_params[:first_name]) %>" />
     </p>
-    
+
     <p>
       <label for="payment_profile_first_name">Last Name on Card</label><br/>
       <input type="text" name="payment_profile[last_name]" id="payment_profile_last_name" value="<%= h(payment_profile_params[:last_name]) %>" />
     </p>
-    
+
     <p>
       <label for="payment_profile_card_number">Card Number</label><br/>
       <input type="text" name="payment_profile[card_number]" id="payment_profile_card_number" value="<%= h(payment_profile_params[:card_number]) %>" />
     </p>
-    
+
     <p>
       Expiration <label for="payment_profile_expiration_month">Month</label> / <label for="payment_profile_expiration_year">Year</label><br/>
       <select name="payment_profile[expiration_month]" id="payment_profile_expiration_month">
@@ -58,12 +58,31 @@
         <% end %>
       </select>
     </p>
+
+    <input type="hidden" name="payment_profile[device_data]" id="card_update_profile_device_data" value="<%= h(payment_profile_params[:device_data]) %>" />
+
+  </p>
+
   </fieldset>
-  
+
   <p>
     <input type="submit" value="Update Card" />
     or
     <a href="/">Go Back</a>
   </p>
-    
+
 </form>
+
+<!-- https://developers.braintreepayments.com/guides/advanced-fraud-tools/client-side/javascript/v2#standalone-usage -->
+
+<script src="https://js.braintreegateway.com/js/braintree-2.32.1.min.js"></script>
+
+<script>
+  var dataCollector = braintree.data.setup({
+    kount: {environment: 'sandbox'},
+  });
+
+  var form = document.getElementById('my-form-id');
+  var deviceDataInput = form['card_update_profile_device_data'];
+  deviceDataInput.value =  dataCollector.deviceData;
+</script>
