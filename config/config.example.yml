@@ -1,3 +1,5 @@
 api_id: xxx
-api_password: xxx
 api_secret: xxx
+api_password: xxx
+# uncomment and modify to connect to a different environment:
+# base_uri: https://api.chargify.com/api/v2
